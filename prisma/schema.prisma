@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PaymentMethod {
+  PIX
+  CREDIT_CARD
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAIL
+}
+
+model Payment {
+  id             String          @id @default(uuid())
+  cpf            String          @db.VarChar(11)
+  description    String
+  amount         Decimal         @db.Decimal(10, 2)
+  paymentMethod  PaymentMethod   @map("payment_method")
+  status         PaymentStatus   @default(PENDING)
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @updatedAt @map("updated_at")
+  
+  history        PaymentHistory[]
+
+  @@map("payment")
+}
+
+model PaymentHistory {
+  id        Int      @id @default(autoincrement())
+  paymentId String   @map("payment_id")
+  event     String
+  eventData Json?    @map("event_data")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  payment   Payment  @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+
+  @@map("payment_history")
+}
