@@ -1,10 +1,6 @@
 import { Prisma } from '@prisma/client';
 
 declare global {
-  // ============================================
-  // Database Types (Prisma Generated)
-  // ============================================
-
   type Payment = {
     id: string;
     cpf: string;
@@ -23,10 +19,6 @@ declare global {
     eventData: Prisma.JsonValue | null;
     createdAt: Date;
   };
-
-  // ============================================
-  // Prisma Input Types
-  // ============================================
 
   type PaymentCreateInput = {
     id: string;
@@ -64,18 +56,10 @@ declare global {
     createdAt?: Date;
   };
 
-  // ============================================
-  // Transaction Types
-  // ============================================
-
   type TransactionClient = Omit<
     import('@prisma/client').PrismaClient,
     '$connect' | '$disconnect' | '$on' | '$transaction' | '$use' | '$extends'
   >;
-
-  // ============================================
-  // Repository Filter Types
-  // ============================================
 
   interface PaymentFilters {
     cpf?: string;
@@ -84,10 +68,6 @@ declare global {
     page?: number;
     take?: number;
   }
-
-  // ============================================
-  // Service Types
-  // ============================================
 
   interface CreatePaymentData {
     id: string;
@@ -111,10 +91,6 @@ declare global {
     event: string;
     eventData: any;
   }
-
-  // ============================================
-  // Mercado Pago Types
-  // ============================================
 
   interface MercadoPagoPreference {
     id: string;
@@ -160,10 +136,6 @@ declare global {
     };
   }
 
-  // ============================================
-  // Response Types
-  // ============================================
-
   interface ApiPaymentResponse {
     success: boolean;
     data: Payment;
@@ -194,10 +166,6 @@ declare global {
     message: string;
     data?: any;
   }
-
-  // ============================================
-  // Webhook Types
-  // ============================================
 
   interface MercadoPagoWebhookData {
     action: string;
