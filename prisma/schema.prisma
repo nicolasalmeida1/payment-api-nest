@@ -10,12 +10,16 @@ datasource db {
 enum PaymentMethod {
   PIX
   CREDIT_CARD
+
+  @@map("payment_method")
 }
 
 enum PaymentStatus {
   PENDING
   PAID
   FAIL
+
+  @@map("payment_status")
 }
 
 model Payment {
