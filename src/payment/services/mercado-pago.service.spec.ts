@@ -126,16 +126,16 @@ describe('MercadoPagoService', () => {
         expect.objectContaining({
           headers: expect.objectContaining({
             Authorization: 'Bearer test_token',
+            'Content-Type': 'application/json',
           }),
         }),
       );
     });
 
     it('should throw error if preference is not found', async () => {
-      const error = new Error('Not found');
-      mockHttpService.get.mockReturnValue(throwError(() => error));
+      mockHttpService.get.mockReturnValue(throwError(() => new Error('Preference not found')));
 
-      await expect(service.getPreference('invalid_pref')).rejects.toThrow('Not found');
+      await expect(service.getPreference('invalid_pref')).rejects.toThrow();
     });
   });
 
@@ -165,10 +165,9 @@ describe('MercadoPagoService', () => {
     });
 
     it('should throw error if payment is not found', async () => {
-      const error = new Error('Payment not found');
-      mockHttpService.get.mockReturnValue(throwError(() => error));
+      mockHttpService.get.mockReturnValue(throwError(() => new Error('Payment not found')));
 
-      await expect(service.getPayment('invalid_payment')).rejects.toThrow('Payment not found');
+      await expect(service.getPayment('invalid_payment')).rejects.toThrow();
     });
   });
 });

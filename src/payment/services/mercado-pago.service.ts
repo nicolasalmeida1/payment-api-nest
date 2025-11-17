@@ -47,7 +47,10 @@ export class MercadoPagoService {
       this.logger.log(`Preference created successfully: ${response.data.id}`);
       return response.data;
     } catch (error) {
-      this.logger.error('Failed to create Mercado Pago preference', error.message);
+      this.logger.error('Failed to create Mercado Pago preference', {
+        error: error.message,
+        response: error.response?.data,
+      });
       throw error;
     }
   }
@@ -109,7 +112,10 @@ export class MercadoPagoService {
       this.logger.debug(`Preference retrieved successfully: ${preferenceId}`);
       return response.data;
     } catch (error) {
-      this.logger.error('Failed to get Mercado Pago preference', error.message);
+      this.logger.error('Failed to get Mercado Pago preference', {
+        error: error.message,
+        response: error.response?.data,
+      });
       throw error;
     }
   }
@@ -130,7 +136,10 @@ export class MercadoPagoService {
       this.logger.debug(`Payment retrieved successfully: ${paymentId}`);
       return response.data;
     } catch (error) {
-      this.logger.error('Failed to get Mercado Pago payment', error.message);
+      this.logger.error('Failed to get Mercado Pago payment', {
+        error: error.message,
+        response: error.response?.data,
+      });
       throw error;
     }
   }
