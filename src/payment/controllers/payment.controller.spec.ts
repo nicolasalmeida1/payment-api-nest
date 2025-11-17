@@ -46,7 +46,7 @@ describe('PaymentController', () => {
   });
 
   describe('create', () => {
-    it('deve criar um pagamento com sucesso', async () => {
+    it('should create a payment successfully', async () => {
       const createDto: CreatePaymentDto = {
         cpf: '12345678900',
         description: 'Test Payment',
@@ -70,7 +70,7 @@ describe('PaymentController', () => {
   });
 
   describe('update', () => {
-    it('deve atualizar um pagamento com sucesso', async () => {
+    it('should update a payment successfully', async () => {
       const updateDto: UpdatePaymentDto = {
         status: PaymentStatus.PAID,
         description: 'Updated Payment',
@@ -97,7 +97,7 @@ describe('PaymentController', () => {
   });
 
   describe('findOne', () => {
-    it('deve buscar um pagamento por ID', async () => {
+    it('should fetch a payment by ID', async () => {
       const response: ApiGetPaymentResponse = {
         success: true,
         data: mockPayment,
@@ -113,7 +113,7 @@ describe('PaymentController', () => {
   });
 
   describe('findAll', () => {
-    it('deve listar pagamentos com filtros', async () => {
+    it('should list payments with filters', async () => {
       const filters: ListPaymentsDto = {
         cpf: '12345678900',
         status: PaymentStatus.PENDING,
@@ -134,7 +134,7 @@ describe('PaymentController', () => {
       expect(paymentService.findAll).toHaveBeenCalledWith(filters);
     });
 
-    it('deve listar todos os pagamentos sem filtros', async () => {
+    it('should list all payments without filters', async () => {
       const response: ApiListPaymentsResponse = {
         success: true,
         data: [mockPayment],

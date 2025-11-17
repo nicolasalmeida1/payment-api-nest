@@ -38,7 +38,7 @@ describe('WebhookController', () => {
   });
 
   describe('handleMercadoPagoWebhook', () => {
-    it('deve processar webhook do Mercado Pago com sucesso', async () => {
+    it('should process Mercado Pago webhook successfully', async () => {
       const response: ApiWebhookResponse = {
         success: true,
         message: 'Webhook processado com sucesso',
@@ -52,7 +52,7 @@ describe('WebhookController', () => {
       expect(webhookService.processMercadoPagoWebhook).toHaveBeenCalledWith(mockWebhookData);
     });
 
-    it('deve lidar com erro ao processar webhook', async () => {
+    it('should handle error when processing webhook', async () => {
       mockWebhookService.processMercadoPagoWebhook.mockRejectedValue(
         new Error('Webhook processing error'),
       );

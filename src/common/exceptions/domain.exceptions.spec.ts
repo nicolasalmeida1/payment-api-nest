@@ -5,7 +5,7 @@ import {
 
 describe('Domain Exceptions', () => {
   describe('PaymentNotFoundError', () => {
-    it('deve criar exceção com mensagem correta', () => {
+    it('should create exception with correct message', () => {
       const paymentId = '123e4567-e89b-12d3-a456-426614174000';
       const error = new PaymentNotFoundError(paymentId);
 
@@ -14,15 +14,15 @@ describe('Domain Exceptions', () => {
       expect(error.message).toBe(`Payment not found: ${paymentId}`);
     });
 
-    it('deve ter stack trace', () => {
+    it('should have stack trace', () => {
       const error = new PaymentNotFoundError('test-id');
 
       expect(error.stack).toBeDefined();
-    });
+    };
   });
 
   describe('PaymentAlreadyPaidError', () => {
-    it('deve criar exceção com mensagem correta', () => {
+    it('should create exception with correct message', () => {
       const paymentId = '123e4567-e89b-12d3-a456-426614174000';
       const error = new PaymentAlreadyPaidError(paymentId);
 
@@ -31,7 +31,7 @@ describe('Domain Exceptions', () => {
       expect(error.message).toBe(`Payment already paid: ${paymentId}`);
     });
 
-    it('deve ter stack trace', () => {
+    it('should have stack trace', () => {
       const error = new PaymentAlreadyPaidError('test-id');
 
       expect(error.stack).toBeDefined();

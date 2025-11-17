@@ -44,7 +44,7 @@ describe('PaymentHistoryRepository', () => {
   });
 
   describe('create', () => {
-    it('deve criar um histórico de pagamento com sucesso', async () => {
+    it('should create a payment history successfully', async () => {
       const createData: PaymentHistoryCreateInput = {
         payment: {
           connect: { id: 'payment-id-123' },
@@ -67,7 +67,7 @@ describe('PaymentHistoryRepository', () => {
       });
     });
 
-    it('deve criar um histórico dentro de uma transação', async () => {
+    it('should create a history within a transaction', async () => {
       const createData: PaymentHistoryCreateInput = {
         payment: {
           connect: { id: 'payment-id-123' },
@@ -94,7 +94,7 @@ describe('PaymentHistoryRepository', () => {
   });
 
   describe('findByPaymentId', () => {
-    it('deve retornar histórico de um pagamento', async () => {
+    it('should return payment history', async () => {
       const paymentId = 'payment-id-123';
       const mockHistories = [mockPaymentHistory];
 
@@ -109,7 +109,7 @@ describe('PaymentHistoryRepository', () => {
       });
     });
 
-    it('deve retornar array vazio se não houver histórico', async () => {
+    it('should return empty array if there is no history', async () => {
       mockPrismaService.paymentHistory.findMany.mockResolvedValue([]);
 
       const result = await repository.findByPaymentId('non-existent-payment');

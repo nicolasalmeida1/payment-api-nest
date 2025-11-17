@@ -4,7 +4,7 @@ import { UpdatePaymentDto } from './update-payment.dto';
 import { PaymentStatus } from '../../common/enums';
 
 describe('UpdatePaymentDto', () => {
-  it('deve validar um DTO válido com status', async () => {
+  it('should validate a valid DTO with status', async () => {
     const dto = new UpdatePaymentDto();
     dto.status = PaymentStatus.PAID;
 
@@ -12,7 +12,7 @@ describe('UpdatePaymentDto', () => {
     expect(errors.length).toBe(0);
   });
 
-  it('deve validar um DTO válido com description', async () => {
+  it('should validate a valid DTO with description', async () => {
     const dto = new UpdatePaymentDto();
     dto.description = 'Updated Payment';
 
@@ -20,7 +20,7 @@ describe('UpdatePaymentDto', () => {
     expect(errors.length).toBe(0);
   });
 
-  it('deve validar um DTO válido com amount', async () => {
+  it('should validate a valid DTO with amount', async () => {
     const dto = new UpdatePaymentDto();
     dto.amount = 200.5;
 
@@ -28,7 +28,7 @@ describe('UpdatePaymentDto', () => {
     expect(errors.length).toBe(0);
   });
 
-  it('deve validar um DTO com múltiplos campos', async () => {
+  it('should validate a DTO with multiple fields', async () => {
     const dto = new UpdatePaymentDto();
     dto.status = PaymentStatus.PAID;
     dto.description = 'Updated Payment';
@@ -38,7 +38,7 @@ describe('UpdatePaymentDto', () => {
     expect(errors.length).toBe(0);
   });
 
-  it('deve falhar se status for inválido', async () => {
+  it('should fail if status is invalid', async () => {
     const dto = new UpdatePaymentDto();
     dto.status = 'INVALID' as any;
 
@@ -47,7 +47,7 @@ describe('UpdatePaymentDto', () => {
     expect(errors[0].property).toBe('status');
   });
 
-  it('deve falhar se amount for negativo', async () => {
+  it('should fail if amount is negative', async () => {
     const dto = new UpdatePaymentDto();
     dto.amount = -10;
 
@@ -56,14 +56,14 @@ describe('UpdatePaymentDto', () => {
     expect(errors[0].property).toBe('amount');
   });
 
-  it('deve aceitar DTO vazio (todos os campos opcionais)', async () => {
+  it('should accept empty DTO (all fields optional)', async () => {
     const dto = new UpdatePaymentDto();
 
     const errors = await validate(dto);
     expect(errors.length).toBe(0);
   });
 
-  it('deve aceitar status PENDING', async () => {
+  it('should accept PENDING status', async () => {
     const dto = new UpdatePaymentDto();
     dto.status = PaymentStatus.PENDING;
 
@@ -71,7 +71,7 @@ describe('UpdatePaymentDto', () => {
     expect(errors.length).toBe(0);
   });
 
-  it('deve aceitar status FAIL', async () => {
+  it('should accept FAIL status', async () => {
     const dto = new UpdatePaymentDto();
     dto.status = PaymentStatus.FAIL;
 

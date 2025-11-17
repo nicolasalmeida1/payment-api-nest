@@ -46,7 +46,7 @@ describe('PaymentRepository', () => {
   });
 
   describe('create', () => {
-    it('deve criar um pagamento com sucesso', async () => {
+    it('should create a payment successfully', async () => {
       const createData: CreatePaymentData = {
         id: mockPayment.id,
         cpf: mockPayment.cpf,
@@ -66,7 +66,7 @@ describe('PaymentRepository', () => {
       });
     });
 
-    it('deve criar um pagamento dentro de uma transação', async () => {
+    it('should create a payment within a transaction', async () => {
       const createData: CreatePaymentData = {
         id: mockPayment.id,
         cpf: mockPayment.cpf,
@@ -92,7 +92,7 @@ describe('PaymentRepository', () => {
   });
 
   describe('findById', () => {
-    it('deve retornar um pagamento por ID', async () => {
+    it('should return a payment by ID', async () => {
       mockPrismaService.payment.findUnique.mockResolvedValue(mockPayment);
 
       const result = await repository.findById(mockPayment.id);
@@ -103,7 +103,7 @@ describe('PaymentRepository', () => {
       });
     });
 
-    it('deve retornar null se pagamento não existe', async () => {
+    it('should return null if payment does not exist', async () => {
       mockPrismaService.payment.findUnique.mockResolvedValue(null);
 
       const result = await repository.findById('non-existent-id');
@@ -113,7 +113,7 @@ describe('PaymentRepository', () => {
   });
 
   describe('update', () => {
-    it('deve atualizar um pagamento com sucesso', async () => {
+    it('should update a payment successfully', async () => {
       const updateData: UpdatePaymentData = {
         status: PaymentStatus.PAID,
         description: 'Updated Payment',
@@ -133,7 +133,7 @@ describe('PaymentRepository', () => {
   });
 
   describe('findAll', () => {
-    it('deve retornar lista de pagamentos com filtros', async () => {
+    it('should return list of payments with filters', async () => {
       const filters: PaymentFilters = {
         cpf: '12345678900',
         status: PaymentStatus.PENDING,
@@ -150,7 +150,7 @@ describe('PaymentRepository', () => {
       expect(mockPrismaService.payment.findMany).toHaveBeenCalled();
     });
 
-    it('deve retornar lista vazia quando não há pagamentos', async () => {
+    it('should return empty list when there are no payments', async () => {
       mockPrismaService.payment.findMany.mockResolvedValue([]);
 
       const result = await repository.findAll({ page: 1, take: 10 });

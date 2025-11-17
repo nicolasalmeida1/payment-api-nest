@@ -71,7 +71,7 @@ describe('MercadoPagoService', () => {
   });
 
   describe('createPreference', () => {
-    it('deve criar uma preferência de pagamento no Mercado Pago', async () => {
+    it('should create a payment preference in Mercado Pago', async () => {
       mockHttpService.post.mockReturnValue(
         of({
           data: mockMercadoPagoPreference,
@@ -99,7 +99,7 @@ describe('MercadoPagoService', () => {
       );
     });
 
-    it('deve lançar erro se a API do Mercado Pago falhar', async () => {
+    it('should throw error if Mercado Pago API fails', async () => {
       mockHttpService.post.mockReturnValue(throwError(() => new Error('Mercado Pago API error')));
 
       await expect(service.createPreference(mockPayment)).rejects.toThrow();
@@ -107,7 +107,7 @@ describe('MercadoPagoService', () => {
   });
 
   describe('getPreference', () => {
-    it('deve buscar uma preferência de pagamento por ID', async () => {
+    it('should fetch a payment preference by ID', async () => {
       mockHttpService.get.mockReturnValue(
         of({
           data: mockMercadoPagoPreference,
@@ -131,7 +131,7 @@ describe('MercadoPagoService', () => {
       );
     });
 
-    it('deve lançar erro se preferência não for encontrada', async () => {
+    it('should throw error if preference is not found', async () => {
       const error = new Error('Not found');
       mockHttpService.get.mockReturnValue(throwError(() => error));
 
@@ -140,7 +140,7 @@ describe('MercadoPagoService', () => {
   });
 
   describe('getPayment', () => {
-    it('deve buscar um pagamento por ID no Mercado Pago', async () => {
+    it('should fetch a payment by ID from Mercado Pago', async () => {
       mockHttpService.get.mockReturnValue(
         of({
           data: mockMercadoPagoPayment,
@@ -164,7 +164,7 @@ describe('MercadoPagoService', () => {
       );
     });
 
-    it('deve lançar erro se pagamento não for encontrado', async () => {
+    it('should throw error if payment is not found', async () => {
       const error = new Error('Payment not found');
       mockHttpService.get.mockReturnValue(throwError(() => error));
 

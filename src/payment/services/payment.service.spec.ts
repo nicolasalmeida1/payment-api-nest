@@ -91,7 +91,7 @@ describe('PaymentService', () => {
       paymentMethod: PaymentMethod.PIX,
     };
 
-    it('deve criar um pagamento PIX com sucesso', async () => {
+    it('should create a PIX payment successfully', async () => {
       mockPrismaService.$transaction.mockImplementation(async (callback) => {
         return callback({
           payment: { create: mockPaymentRepository.create },
@@ -108,7 +108,7 @@ describe('PaymentService', () => {
       expect(result.mercadoPago).toBeNull();
     });
 
-    it('deve criar um pagamento com cartão de crédito e integrar com Mercado Pago', async () => {
+    it('should create a credit card payment and integrate with Mercado Pago', async () => {
       const creditCardDto: CreatePaymentDto = {
         ...createDto,
         paymentMethod: PaymentMethod.CREDIT_CARD,
@@ -141,7 +141,7 @@ describe('PaymentService', () => {
       expect(mockMercadoPagoService.createPreference).toHaveBeenCalledWith(creditCardPayment);
     });
 
-    it('deve lançar erro se criar pagamento com cartão e Mercado Pago falhar', async () => {
+    it('should throw error if creating credit card payment and Mercado Pago fails', async () => {
       const creditCardDto: CreatePaymentDto = {
         ...createDto,
         paymentMethod: PaymentMethod.CREDIT_CARD,
@@ -172,7 +172,7 @@ describe('PaymentService', () => {
       description: 'Updated Payment',
     };
 
-    it('deve atualizar um pagamento com sucesso', async () => {
+    it('should update a payment successfully', async () => {
       const updatedPayment = { ...mockPayment, ...updateDto };
 
       mockPrismaService.$transaction.mockImplementation(async (callback) => {
@@ -210,7 +210,7 @@ describe('PaymentService', () => {
       );
     });
 
-    it('deve lançar PaymentAlreadyPaidError se tentar atualizar pagamento já pago', async () => {
+    it('should throw PaymentAlreadyPaidError if trying to update already paid payment', async () => {
       const paidPayment = { ...mockPayment, status: PaymentStatus.PAID };
       const updateDto: UpdatePaymentDto = {
         amount: 200.0,
@@ -233,7 +233,7 @@ describe('PaymentService', () => {
   });
 
   describe('findById', () => {
-    it('deve retornar um pagamento por ID', async () => {
+    it('should return a payment by ID', async () => {
       mockPaymentRepository.findById.mockResolvedValue(mockPayment);
 
       const result = await service.findById(mockPayment.id);
@@ -242,15 +242,15 @@ describe('PaymentService', () => {
       expect(result.data).toEqual(mockPayment);
     });
 
-    it('deve lançar PaymentNotFoundError se pagamento não existe', async () => {
+    it('should throw PaymentNotFoundError if payment does not exist', async () => {
       mockPaymentRepository.findById.mockResolvedValue(null);
 
-      await expect(service.findById('non-existent-id')).rejects.toThrow(PaymentNotFoundError);
+      await expect(service.findOne('non-existent-id')).rejects.toThrow(PaymentNotFoundError);
     });
   });
 
   describe('findAll', () => {
-    it('deve retornar lista de pagamentos', async () => {
+    it('should return list of payments', async () => {
       const filters: ListPaymentsDto = {
         cpf: '12345678900',
         status: PaymentStatus.PENDING,
@@ -267,7 +267,7 @@ describe('PaymentService', () => {
       expect(result.data).toEqual(mockPayments);
     });
 
-    it('deve retornar lista vazia quando não há pagamentos', async () => {
+    it('should return empty list when there are no payments', async () => {
       mockPaymentRepository.findAll.mockResolvedValue([]);
 
       const result = await service.findAll({});
@@ -278,27 +278,27 @@ describe('PaymentService', () => {
   });
 
   describe('mapMercadoPagoStatusToPaymentStatus', () => {
-    it('deve mapear approved para PAID', () => {
+    it('should map approved to PAID', () => {
       const result = service.mapMercadoPagoStatusToPaymentStatus('approved');
       expect(result).toBe(PaymentStatus.PAID);
     });
 
-    it('deve mapear pending para PENDING', () => {
+    it('should map pending to PENDING', () => {
       const result = service.mapMercadoPagoStatusToPaymentStatus('pending');
       expect(result).toBe(PaymentStatus.PENDING);
     });
 
-    it('deve mapear rejected para FAIL', () => {
+    it('should map rejected to FAIL', () => {
       const result = service.mapMercadoPagoStatusToPaymentStatus('rejected');
       expect(result).toBe(PaymentStatus.FAIL);
     });
 
-    it('deve mapear cancelled para FAIL', () => {
+    it('should map cancelled to FAIL', () => {
       const result = service.mapMercadoPagoStatusToPaymentStatus('cancelled');
       expect(result).toBe(PaymentStatus.FAIL);
     });
 
-    it('deve retornar PENDING para status desconhecido', () => {
+    it('should return PENDING for unknown status', () => {
       const result = service.mapMercadoPagoStatusToPaymentStatus('unknown');
       expect(result).toBe(PaymentStatus.PENDING);
     });

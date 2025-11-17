@@ -93,7 +93,7 @@ describe('WebhookService', () => {
   });
 
   describe('processMercadoPagoWebhook', () => {
-    it('deve processar webhook de pagamento aprovado com sucesso', async () => {
+    it('should process approved payment webhook successfully', async () => {
       mockMercadoPagoService.getPayment.mockResolvedValue(mockMercadoPagoPayment);
 
       const updatedPayment = {
@@ -122,7 +122,7 @@ describe('WebhookService', () => {
       expect(mockMercadoPagoService.getPayment).toHaveBeenCalledWith('mp_123');
     });
 
-    it('deve lançar erro se pagamento não for encontrado', async () => {
+    it('should throw error if payment is not found', async () => {
       mockMercadoPagoService.getPayment.mockResolvedValue(mockMercadoPagoPayment);
 
       mockPrismaService.$transaction.mockImplementation(async (callback) => {
@@ -140,7 +140,7 @@ describe('WebhookService', () => {
       );
     });
 
-    it('deve lidar com webhook sem external_reference', async () => {
+    it('should handle webhook without external_reference', async () => {
       const paymentWithoutRef = {
         ...mockMercadoPagoPayment,
         external_reference: undefined,
@@ -154,7 +154,7 @@ describe('WebhookService', () => {
       expect(result.message).toContain('Payment missing external_reference');
     });
 
-    it('deve processar webhook de pagamento rejeitado', async () => {
+    it('should process rejected payment webhook', async () => {
       const rejectedPayment = {
         ...mockMercadoPagoPayment,
         status: 'rejected',
@@ -189,7 +189,7 @@ describe('WebhookService', () => {
       );
     });
 
-    it('deve ignorar webhook de tipo diferente de payment', async () => {
+    it('should ignore webhook of type other than payment', async () => {
       const nonPaymentWebhook = {
         ...mockWebhookData,
         type: 'subscription',
@@ -201,7 +201,7 @@ describe('WebhookService', () => {
       expect(mockMercadoPagoService.getPayment).not.toHaveBeenCalled();
     });
 
-    it('deve lidar com erro ao buscar pagamento no Mercado Pago', async () => {
+    it('should handle error when fetching payment from Mercado Pago', async () => {
       mockMercadoPagoService.getPayment.mockRejectedValue(new Error('Mercado Pago API error'));
 
       await expect(service.processMercadoPagoWebhook(mockWebhookData)).rejects.toThrow();

@@ -4,7 +4,7 @@ import { CreatePaymentDto } from './create-payment.dto';
 import { PaymentMethod } from '../../common/enums';
 
 describe('CreatePaymentDto', () => {
-  it('deve validar um DTO válido', async () => {
+  it('should validate a valid DTO', async () => {
     const dto = new CreatePaymentDto();
     dto.cpf = '12345678901';
     dto.description = 'Test Payment';
@@ -15,7 +15,7 @@ describe('CreatePaymentDto', () => {
     expect(errors.length).toBe(0);
   });
 
-  it('deve falhar se cpf estiver vazio', async () => {
+  it('should fail if cpf is empty', async () => {
     const dto = new CreatePaymentDto();
     dto.cpf = '';
     dto.description = 'Test Payment';
@@ -27,7 +27,7 @@ describe('CreatePaymentDto', () => {
     expect(errors[0].property).toBe('cpf');
   });
 
-  it('deve falhar se cpf não tiver 11 dígitos', async () => {
+  it('should fail if cpf does not have 11 digits', async () => {
     const dto = new CreatePaymentDto();
     dto.cpf = '123';
     dto.description = 'Test Payment';
@@ -39,7 +39,7 @@ describe('CreatePaymentDto', () => {
     expect(errors[0].property).toBe('cpf');
   });
 
-  it('deve falhar se description estiver vazio', async () => {
+  it('should fail if description is empty', async () => {
     const dto = new CreatePaymentDto();
     dto.cpf = '12345678901';
     dto.description = '';
@@ -51,7 +51,7 @@ describe('CreatePaymentDto', () => {
     expect(errors[0].property).toBe('description');
   });
 
-  it('deve falhar se amount for negativo', async () => {
+  it('should fail if amount is negative', async () => {
     const dto = new CreatePaymentDto();
     dto.cpf = '12345678901';
     dto.description = 'Test Payment';
@@ -63,7 +63,7 @@ describe('CreatePaymentDto', () => {
     expect(errors[0].property).toBe('amount');
   });
 
-  it('deve falhar se amount for zero', async () => {
+  it('should fail if amount is zero', async () => {
     const dto = new CreatePaymentDto();
     dto.cpf = '12345678901';
     dto.description = 'Test Payment';
@@ -75,7 +75,7 @@ describe('CreatePaymentDto', () => {
     expect(errors[0].property).toBe('amount');
   });
 
-  it('deve falhar se paymentMethod for inválido', async () => {
+  it('should fail if paymentMethod is invalid', async () => {
     const dto = new CreatePaymentDto();
     dto.cpf = '12345678901';
     dto.description = 'Test Payment';
@@ -87,7 +87,7 @@ describe('CreatePaymentDto', () => {
     expect(errors[0].property).toBe('paymentMethod');
   });
 
-  it('deve aceitar pagamento com cartão de crédito', async () => {
+  it('should accept credit card payment', async () => {
     const dto = new CreatePaymentDto();
     dto.cpf = '12345678901';
     dto.description = 'Test Payment';

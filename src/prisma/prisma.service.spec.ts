@@ -12,30 +12,30 @@ describe('PrismaService', () => {
     service = module.get<PrismaService>(PrismaService);
   });
 
-  it('deve ser definido', () => {
+  it('should be defined', () => {
     expect(service).toBeDefined();
   });
 
-  it('deve ter método $connect', () => {
+  it('should have $connect method', () => {
     expect(service.$connect).toBeDefined();
     expect(typeof service.$connect).toBe('function');
   });
 
-  it('deve ter método $disconnect', () => {
+  it('should have $disconnect method', () => {
     expect(service.$disconnect).toBeDefined();
     expect(typeof service.$disconnect).toBe('function');
   });
 
-  it('deve ter método $transaction', () => {
+  it('should have $transaction method', () => {
     expect(service.$transaction).toBeDefined();
     expect(typeof service.$transaction).toBe('function');
   });
 
-  it('deve ter model payment', () => {
+  it('should have payment model', () => {
     expect(service.payment).toBeDefined();
   });
 
-  it('deve ter model paymentHistory', () => {
+  it('should have paymentHistory model', () => {
     expect(service.paymentHistory).toBeDefined();
   });
 });
