@@ -75,16 +75,6 @@ npm run test:watch
 npm run test:cov
 ```
 
-📖 **Documentação completa**: [docs/TESTING.md](docs/TESTING.md)
-
-**Cobertura atual:**
-- ✅ Controllers: 100%
-- ✅ Services: 97.64% 
-- ✅ Repositories: 98.11%
-- ✅ DTOs: 93.1%
-- ✅ Exceptions: 100%
-- ✅ Total: **85 testes passando** | Cobertura geral: **65.99%**
-
 ## 📚 API Endpoints
 
 ### Pagamentos
@@ -212,27 +202,6 @@ npm run prisma:studio
 # Executar seeds
 npm run prisma:seed
 ```
-
-## 📊 Status
-
-- ✅ CRUD de pagamentos
-- ✅ Integração Mercado Pago
-- ✅ Webhooks
-- ✅ Temporal.io workflows
-- ✅ Validações com class-validator
-- ✅ Logging estruturado
-- ✅ Tratamento de erros
-- ✅ Suporte a transações
-
-## 🔄 Migração do projeto original
-
-Este projeto é uma reimplementação completa do [payment-api](../payment-api) usando NestJS:
-
-- **Fastify → NestJS/Express**: Framework moderno com injeção de dependências
-- **Objection.js → Prisma**: ORM type-safe com melhor DX
-- **Joi → class-validator**: Validações integradas ao NestJS
-- **Knex migrations → Prisma migrations**: Migrations mais simples e type-safe
-- **Manual DI → NestJS DI**: Sistema de injeção de dependências robusto
 
 ## 📝 Licença
 
